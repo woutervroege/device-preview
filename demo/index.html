@@ -7,54 +7,93 @@
     <title>device-preview demo</title>
 
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script type="module" src="../device-preview.js"></script>
 
     <script type="module">
-      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
-      import '@polymer/iron-demo-helpers/demo-snippet';
+      import 'slices-player/slices-player.js'
+    </script>
+
+    <script type="module" src="../device-preview.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-database.js"></script>
+
+    <script>
+      var config = {
+        apiKey: 'AIzaSyA88svq2uo-5bCrGxRvArKCuqJDryAOpnc',
+        authDomain: 'another-proto.firebaseapp.com',
+        databaseURL: 'https://another-proto.firebaseio.com',
+        projectId: 'another-proto',
+      };
+      firebase.initializeApp(config);
     </script>
 
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
+        html, body {
+          display: flex;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          padding: 32px;
+          box-sizing: border-box;
+        }
+         device-preview {
+          height: 100%;
+          width: 100%;
+          box-sizing: border-box;
+         }
+
+         slices-player {
+           border-radius: 31px;
+           overflow: hidden;
+         }
+
+         #options {
+          position: absolute;
+          top: 0;
+          right: 0;
+         }
       </style>
     </custom-style>
   </head>
-
   <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic device-preview demo</h3>
-      <demo-snippet>
-        <template>
-          <device-preview id="preview"></device-preview>
-        </template>
-      </demo-snippet>
+    <device-preview
+      id="preview"
+      device="iphone5"
+      orientation="portrait"
+    >
+      <slices-player
+        story-id="-LL4L3Vzn6GIbeT4m0DT"
+        editable
+      ></slices-player>
+    </device-preview>
+
+    <div id="options">
+
+      <input id="zoom" readonly disabled>
+      
+      <select id="device">
+        <option value="iphone5">iPhone 5</option>
+        <option value="iphone6">iPhone 6/7/8</option>
+        <option value="iphoneX">iPhone X</option>
+        <option value="galaxyS7">Galaxy S7</option>
+        <option value="galaxyS8">Galaxy S8</option>
+        <option value="galaxyA5">Galaxy A5</option>
+        <option value="oneplus6T">OnePlus 6T</option>
+        <option value="ipad">iPad</option>
+        <option value="macbook">MacBook Pro</option>
+      </select>
+
+      <select id="orientation">
+        <option value="portrait">Portrait</option>
+        <option value="landscape">Landscape</option>
+      </select>
+
     </div>
 
-          <input id="zoom" readonly disabled>
-      
-          <select id="device">
-            <option value="iphone5">iPhone 5</option>
-            <option value="iphone6">iPhone 6/7/8</option>
-            <option value="iphoneX">iPhone X</option>
-            <option value="galaxyS7">Galaxy S7</option>
-            <option value="galaxyS8">Galaxy S8</option>
-            <option value="galaxyA5">Galaxy A5</option>
-            <option value="oneplus6T">OnePlus 6T</option>
-            <option value="ipad">iPad</option>
-            <option value="macbook">MacBook Pro</option>
-          </select>
-
-          <select id="orientation">
-            <option value="portrait">Portrait</option>
-            <option value="landscape">Landscape</option>
-          </select>
-
-  </body>
-
-  <script>
-
-    window.addEventListener('WebComponentsReady', () => {
-
+    <script>
       device.addEventListener('change', (evt) => {
         preview.device = evt.target.value;
       })
@@ -83,9 +122,7 @@
         })
       }
 
-      
-    })
+    </script>
 
-  </script>
-
+</body>
 </html>

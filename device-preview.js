@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit-element';
 import ResizeObserver from 'resize-observer-polyfill';
 
 /**
- * `editor`
+ * `device-preview`
  * 
  *
  * @customElement
@@ -18,13 +18,12 @@ class DevicePreview extends LitElement {
           align-items: center;
           justify-content: center;
         }
-
+        
         #device {
           border-width: 9px;
           border-style: solid;
           border-color: #1a1a1a;
           border-radius: 40px;
-          // overflow: hidden;
           margin: auto;
           display: flex;
           flex-direction: column;
