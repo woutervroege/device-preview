@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>device-preview demo</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="../device-preview.js"></script>
+
+    <script type="module">
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+      import '@polymer/iron-demo-helpers/demo-snippet';
+    </script>
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic device-preview demo</h3>
+      <demo-snippet>
+        <template>
+          <device-preview id="preview"></device-preview>
+        </template>
+      </demo-snippet>
+    </div>
+
+          <input id="zoom" readonly disabled>
+      
+          <select id="device">
+            <option value="iphone5">iPhone 5</option>
+            <option value="iphone6">iPhone 6/7/8</option>
+            <option value="iphoneX">iPhone X</option>
+            <option value="galaxyS7">Galaxy S7</option>
+            <option value="galaxyS8">Galaxy S8</option>
+            <option value="galaxyA5">Galaxy A5</option>
+            <option value="oneplus6T">OnePlus 6T</option>
+            <option value="ipad">iPad</option>
+            <option value="macbook">MacBook Pro</option>
+          </select>
+
+          <select id="orientation">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+          </select>
+
+  </body>
+
+  <script>
+
+    window.addEventListener('WebComponentsReady', () => {
+
+      device.addEventListener('change', (evt) => {
+        preview.device = evt.target.value;
+      })
+      orientation.addEventListener('change', (evt) => {
+        preview.orientation = evt.target.value;
+      })
+
+      preview.addEventListener('device-changed', ((evt) => {
+        select('#device', evt.detail.value)
+      }))
+
+      preview.addEventListener('orientation-changed', ((evt) => {
+        select('#orientation', evt.detail.value)
+      }))
+
+      preview.addEventListener('zoom-changed', ((evt) => {
+        zoom.value = parseInt(evt.detail.value * 100) + '%';
+      }))
+
+      function select(selectBox, newValue) {
+        var selector = document.querySelector(selectBox);
+        Array.from(selector.options).map((item, i) => {
+          if(item.value === newValue) {
+            selector.selectedIndex = i;
+          }
+        })
+      }
+
+      
+    })
+
+  </script>
+
+</html>
